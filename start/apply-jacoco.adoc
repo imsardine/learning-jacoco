@@ -1,0 +1,3 @@
+= 套用 JaCoCo
+
+用 archetype 快速建個 hello world，加上 plugin 的宣告，沒測試 ... 沒 coverage ... 加了測試 ... coverage 只是執行過，有沒有驗證是另一回事 ....

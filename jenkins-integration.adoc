@@ -1,0 +1,4 @@
+= 跟 Jenkins 搭配使用
+
+ * 怎麼產生 JUnit XML report?
+ * 可以看出 trend

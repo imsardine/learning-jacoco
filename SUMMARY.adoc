@@ -1,0 +1,44 @@
+= Summary
+
+////
+疑問：
+
+ * Jenkins plugin 的 Coverage column 是什麼??
+ * app/build/outputs/code-coverage/connected/coverage.ec 跑兩個 device 為什麼還是只有一支 .ec 不像 Spoon 會做 merge??
+ * target/site/jacoco/org.jacoco.examples.parser/Main.java.html 為什麼 for loop 也會被標示為 branch??
+ * line coverage 也很難懂，如果把多個 statement 寫成一行呢?? 看來最好的方式是不要把太多的邏輯寫在同一行
+ * 怎麼從 commandl line 產生 execution data 及 coverage report??
+ * JaCoCo 要怎麼唸? => jay-co-co
+ * JaCoCo 的運作原理?? Agent 的作用是什麼??
+ * `.ec` 跟 `.exec` 的不同??
+ * execution data 的格式
+ * coverage report 怎麼讀?? 各式 branch、statement coverage 的差別??
+   ** M 是 missed，而 C 是 covered??
+ * branch coverage?? 用簡單的例子證實
+ * 裡面只有 static method 的 Util class，為什麼會有 `Util()` instruction M: 3 C: 0，用 `javap` 看得出來嗎??
+ * Jenkins plugin 裡的 cverage trend 左邊的單位是什麼? => 已經寫了是 lineCovered 與 lineMissed，比例是 lineCovered / (lineCovered + lineMissed) 再四捨五入??
+ * inner class 都有一個 `{...}`，這指的是 static initializer 嗎??
+ * 把多個 statement 寫成一行，coverage 的表現會打折??
+ * 有些 Java interface 有 static initializer 也會被視為 executable class??
+
+課程安排：
+
+ * 先用官方的 example 確認可以執行得起來，說明怎麼閱讀 report，再說明背後的原理。
+ * 用 Java Hello World 帶觀念 (command line) - execution data、report 怎麼看；怎麼補測試，提高 coverage ...
+ * 用 Maven plugin 來帶 code coverage 怎麼看? 說明 plugin 怎麼用法 (Jenkins plugin 不同參數參數的影響)
+ * 把 interface 及 mocking 引進來，會是什麼樣子?
+
+////
+
+ * link:README.adoc[前言]
+ * link:start/README.adoc[新手上路]
+   ** link:start/coverage-reports.adoc[解讀 Coverage Report]
+   ** link:start/_apply-jacoco.adoc[套用 JaCoCo]
+   ** link:start/_summary.adoc[小結]
+ * link:_jenkins-integration.adoc[與 Jenkins 整合]
+ * link:android/README.adoc[Android 與 JaCoCo]
+   ** link:android/how-it-works.adoc[運作的原理]
+   ** link:android/jenkins-integration.adoc[與 Jenkins 整合]
+ * link:_maven-integration.adoc[與 Maven 整合]
+ * link:_coverage-counters.adoc[覆蓋率計算方式]
+

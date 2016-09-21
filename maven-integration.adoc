@@ -1,0 +1,21 @@
+= 運作的原理
+
+對 JaCoCo 背後運作的原理稍微有認識，使用過程中若遇到問題，會比較知道要往哪個方向？瞭解其限制 ...
+
+利用 ASM 安插 
+
+說明流程，on-the-fly instrumentation 記錄被執行過的 bytecode，分析時搭配 class file 與 source code ...
+
+帶出 Android 的 offline instrumentation。
+
+這裡就能說明 line coverage 了 .... source line 
+
+總結：
+
+ * 所謂的 covered 只不過是執行過，沒有驗證只能聲稱不會 crash 而已。
+ * 不是每一行 source code 都會產生 byte code，而一行 source code 也可能產生多個 bytecode
+ * Java 1.5 + instrumentation agnet
+ * debug information -> line 粒度
+ * bytecode based
+
+<1> 一開始就透過 Maven property `argLine` 安排 JVM option `-javaagent`，讓 JaCoCo agent 在測試期間成為 instrumentation agent (對受測的 class 做 on-the-fly instrumentation)，然後將 execution data 記錄到 `target/jacoco.exec`。

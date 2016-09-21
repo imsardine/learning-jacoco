@@ -1,0 +1,97 @@
+= 覆蓋率計算方式 (Coverage Counters)
+
+先從 instruction coverage 談起，前面多次提到 bytecode instruction，但為什麼 source code 有 10 行 (L63 - L72)，而 instruction coverage 卻顯示 `product()` 有 21 個 instruction 被覆蓋，還有 8 個 instruction 沒被覆蓋？
+
+image::/images/example-coverage-report-method-instructions.png[]
+
+用 `javap` 反解 `ExpressionParser` class 的 bytecode：
+
+----
+$ javap -c -p target/classes/org/jacoco/examples/parser/ExpressionParser.class
+Compiled from "ExpressionParser.java"
+public class org.jacoco.examples.parser.ExpressionParser {
+  ...
+  private org.jacoco.examples.expressions.IExpression product() throws java.io.IOException;
+    Code:
+       0: aload_0
+       1: invokespecial #17                 // Method factor:()Lorg/jacoco/examples/expressions/IExpression;
+       4: astore_1
+       5: aload_0
+       6: bipush        42
+       8: invokespecial #12                 // Method accept:(I)Z
+      11: ifeq          30
+      14: new           #18                 // class org/jacoco/examples/expressions/Mul
+      17: dup
+      18: aload_1
+      19: aload_0
+      20: invokespecial #17                 // Method factor:()Lorg/jacoco/examples/expressions/IExpression;
+      23: invokespecial #19                 // Method org/jacoco/examples/expressions/Mul."<init>":(Lorg/jacoco/examples/expressions/IExpression;Lorg/jacoco/examples/expressions/IExpression;)V
+      26: astore_1
+      27: goto          5
+      30: aload_0
+      31: bipush        47
+      33: invokespecial #12                 // Method accept:(I)Z
+      36: ifeq          55
+      39: new           #20                 // class org/jacoco/examples/expressions/Div
+      42: dup
+      43: aload_1
+      44: aload_0
+      45: invokespecial #17                 // Method factor:()Lorg/jacoco/examples/expressions/IExpression;
+      48: invokespecial #21                 // Method org/jacoco/examples/expressions/Div."<init>":(Lorg/jacoco/examples/expressions/IExpression;Lorg/jacoco/examples/expressions/IExpression;)V
+      51: astore_1
+      52: goto          5
+      55: aload_1
+      56: areturn
+
+  ...
+}
+----
+
+算一算，從 `0: aload_0` 到 `56: areturn` 剛好就 21 + 8 = 29 個 bytecode instruction。
+
+----
+$ cat Main.java
+public class Main {
+
+    private static final String GREETING = new String("Hello, World!");
+
+    public static void main(String[] args) {
+        System.out.println(GREETING);
+    }
+}
+----
+
+----
+$ javac Main.java
+$ javap -c Main.class
+Compiled from "Main.java"
+public class Main {
+  public Main();
+    Code: <1>
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       3: getstatic     #3                  // Field GREETING:Ljava/lang/String;
+       6: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       9: return
+
+  static {};
+    Code: <3>
+       0: new           #5                  // class java/lang/String
+       3: dup
+       4: ldc           #6                  // String Hello, World!
+       6: invokespecial #7                  // Method java/lang/String."<init>":(Ljava/lang/String;)V
+       9: putstatic     #3                  // Field GREETING:Ljava/lang/String;
+      12: return
+}
+----
+<1> 自動產生的 default constructor，有 3 個 bytecode instruction。
+<2> `System.out.println(GREETING)` 一行 Java code 產生 4 個 bytecode instruction。
+<3> 因為要初始化常數 `GREETING` 的關係，自動產生了一個 static initializer。
+
+主要以 bytecode 為主，不一定有對應的 Java source code。
+
