@@ -34,9 +34,16 @@ image::/images/jenkins-action-record-jacoco.png[]
 
  * Path to exec files - `app/build/outputs/code-coverage/connected/coverage.ec`
  * Path to class directories - `app/build/intermediates/classes/debug` 
- * Path to source directories - `app/src/main/java`
- * Inclusions - (維持空白，表示全部)
- * Exclusions - `**/R.class, **/R$*.class, **/Manifest.class, **/Manifest$*.class, **/BuildConfig.class` (排除自動產生的程式碼)
+ * Path to source directories - `**/src/main/java`
++
+將所有 subproject 的 source code 都考量進來，因為相關 module 的 class file 都會集中到 `app/build/intermediates/classes/debug` 底下。
++
+ * Inclusions - 引入自行開發的程式，通常都在同一個套件下。例如 `com/example/\**/*.class`
+ * Exclusions - 再排除自動產生的部份，例如：
++
+----
+**/R.class,  **/R$*.class,  **/Manifest.class,  **/Manifest$*.class,  **/BuildConfig.class
+----
 
 CAUTION: 注意 "Path to xxx directories" 的設定，結尾的 `/` 必須去掉，否則會有非預期的結果。
 
@@ -77,7 +84,7 @@ Finished: SUCCESS
 <1> 確認 execution data 有被找到。
 <2> 確認 matched class/source directories 沒有其他不相干的資料夾。
 
-前面提到 "Path to xxx directories" 的設定，結尾不能有 `/`，否則會有非預期的結果。若把 "Path to class directories" 與 "Path to source directories" 分別設定成 `app/build/intermediates/classes/debug` 與 `app/src/main/java`，結果就會變成：
+前面提到 "Path to xxx directories" 的設定，結尾不能有 `/`，否則會有非預期的結果。若把 "Path to class directories" 與 "Path to source directories" 分別設定成 `app/build/intermediates/classes/debug/` 與 `app/src/main/java/`，結果就會變成：
 
 ----
 [JaCoCo plugin] Saving matched class directories for class-pattern: app/build/intermediates/classes/debug/:  /Users/jeremykao/work/android-testing/ui/espresso/BasicSample/app/build/intermediates/classes/debug /Users/jeremykao/work/android-testing/ui/espresso/BasicSample/app/build/intermediates/classes/debug/com ... /Users/jeremykao/work/android-testing/ui/espresso/BasicSample/app/build/intermediates/classes/debug/com/example/android/testing/espresso/BasicSample
