@@ -15,7 +15,7 @@ ____
 對 offline instrumentation 有基本的認識後，可以透過 debug log 觀察 JaCoCo 是如何被整合進 Android Plugin for Gradle 的：
 
 ----
-$ ./gradle --debug connectedAndroidTest
+$ ./gradlew --debug connectedAndroidTest
 ...
 16:39:10.373 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.graph.DependencyGraphBuilder] Visiting dependency com.android.tools.build:gradle-core:2.1.2(runtime) -> org.jacoco:org.jacoco.core:0.7.4.201502262128(runtime)
 ...
@@ -45,9 +45,9 @@ $ ./gradle --debug connectedAndroidTest
 
 16:40:09.376 [INFO] [org.gradle.api.internal.project.ant.AntLoggingAdapter] [ant:reportWithJacoco] Loading execution data file /Users/jeremykao/work/android-testing/ui/espresso/BasicSample/app/build/outputs/code-coverage/connected/coverage.ec
 ----
-<1> 過程中 `transformClassesWithJacocoForDebug` task 會先對 `app/build/intermediates/classes/debug/**.class` 加工，並將結果輸出到 `app/build/intermediates/transforms/jacoco/debug`。
-<2> 把 main APK 與 test APK 送進裝置執行測試，結束後將 execution data (`/data/data/{package-name}/coverage.ec`) 取出到 `app/build/outputs/code-coverage/connected/coverage.ec`。
-<3> `createDebugAndroidTestCoverageReport` 利用 JaCoCo 的 Ant task (`org.jacoco.ant.ReportTask`) 搭配 `app/build/intermediates/classes/debug/**.class` (排除其些 class file) 產生 coverage report。
+<1> 過程中 `transformClassesWithJacocoFor[{Flavor}]Debug` task 會先對 `app/build/intermediates/classes/[{flavor}/]debug/**.class` 加工，並將結果輸出到 `app/build/intermediates/transforms/jacoco/[{flavor}/]debug`。
+<2> 把 main APK 與 test APK 送進裝置執行測試，結束後將 execution data (`/data/data/{package-name}/coverage.ec`) 取出到 `app/build/outputs/code-coverage/connected/[flavors/{flavor}/]coverage.ec`。
+<3> `create[{Flavor}]DebugAndroidTestCoverageReport` 利用 JaCoCo 的 Ant task (`org.jacoco.ant.ReportTask`) 搭配 `app/build/intermediates/classes/[{flavor}/]debug/**.class` (排除其些 class file) 產生 coverage report。
 
 TIP: 不知道為什麼 Android 習慣把 execution data 命名成 `.ec` 而不是慣用的 `.exec`，不過這兩者格式是一樣的。
 

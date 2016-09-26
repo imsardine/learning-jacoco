@@ -28,9 +28,9 @@ image::/images/jenkins-upload-plugin.png[]
 
 image::/images/jenkins-action-record-jacoco.png[]
 
-根據上一節的觀察，我們知道 execution data 在 `app/build/outputs/code-coverage/connected/coverage.ec`，產生 report 時要搭配沒有用 JaCoCo 加工過的 class file (`app/build/intermediates/classes/debug/**.class`)，並排除一些自動產生的程式碼。
+根據上一節的觀察，我們知道 execution data 在 `app/build/outputs/code-coverage/connected/[flavors/{flavor}/]coverage.ec`，產生 report 時要搭配沒有用 JaCoCo 加工過的 class file (`app/build/intermediates/classes/[{flavor}/]debug/**.class`)，並排除一些自動產生的程式碼。
 
-由於 `app/build/intermediates/classes/debug/**.class` 會夾雜著一些自動產生的程式碼，比較麻煩的是要如何有效地將它們濾除？這裡利用 inclusion (白名單) 與 exclusion (黑名單) 兩層設定來做過濾：
+由於 `app/build/intermediates/classes/[{flavor}/]debug/**.class` 會夾雜著一些自動產生的程式碼，比較麻煩的是要如何有效地將它們濾除？這裡利用 inclusion (白名單) 與 exclusion (黑名單) 兩層設定來做過濾：
 
  * 通常自行開發的程式都會集中在一個套件下，先將該套件底下的 class file 列為白名單，例如 `com/example/\**/*.class`。
  * 再將套件下自動產生的程式碼列為黑名單，通常可以從檔名的特徵辨識出來，例如 `**/R.class`。
@@ -38,10 +38,10 @@ image::/images/jenkins-action-record-jacoco.png[]
 因此 job 的設定如下：
 
  * Path to exec files - `app/build/outputs/code-coverage/connected/coverage.ec`
- * Path to class directories - `app/build/intermediates/classes/debug` 
+ * Path to class directories - `app/build/intermediates/classes/debug`
  * Path to source directories - `**/src/main/java`
 +
-將所有 subproject 的 source code 都考量進來，因為相關 module 的 class file 都會集中到 `app/build/intermediates/classes/debug` 底下。
+將所有 subproject 的 source code 都考量進來，因為相關 module 的 class file 都會集中到 `app/build/intermediates/classes/[{flavor}/]debug` 底下。
 +
  * Inclusions - `com/example/android/testing/espresso/BasicSample/\**/*.class`
  * Exclusions

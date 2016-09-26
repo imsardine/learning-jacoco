@@ -32,7 +32,7 @@ app:connectedDebugAndroidTest - Installs and runs the tests for debug on connect
     app:transformResourcesWithMergeJavaResForDebugAndroidTest
 ----
 
-宣告 `testCoverageEnabled true` 後，就多了 `createDebugCoverageReport` task 可以用，同時 `connectedAndroidTest` task 也會呼叫 `createDebugAndroidTestCoverageReport` task 產生 coverage report：
+宣告 `testCoverageEnabled true` 後，就多了 `create[{Flavor}]DebugCoverageReport` task 可以用 (其中 _Flavor_ 只在有宣告 product flavor 時才會出現)，同時 `connectedAndroidTest` task 也會呼叫 `create[{Flavor}]DebugAndroidTestCoverageReport` task 產生 coverage report：
 
 ----
 $ ./gradlew -q tasks --all
@@ -53,7 +53,7 @@ app:createDebugCoverageReport - Creates test coverage reports for the debug vari
     app:createDebugAndroidTestCoverageReport - Creates JaCoCo test coverage report from data gathered on the device.
 ----
 
-執行 `./gradlew connectedAndroidTest`，就會自動產生 coverage report 在 `app/build/reports/coverage/{buildtype}/`。例如：
+執行 `./gradlew connectedAndroidTest`，就會自動產生 coverage report 在 `app/build/reports/coverage/[{flavor}/]debug/`。例如：
 
 ----
 $ ./gradlew connectedAndroidTest
