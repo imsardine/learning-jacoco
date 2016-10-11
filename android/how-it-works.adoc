@@ -58,7 +58,7 @@ TIP: 不知道為什麼 Android 習慣把 execution data 命名成 `.ec` 而不�
 --
 [quote,'http://www.eclemma.org/jacoco/trunk/doc/offline.html[JaCoCo - Offline Instrumentation]']
 ____
-Based on the collected `*.exec` files reports can be created the same way as for execution data collected with the Java agent. *Note that for report generation the original class files have to be supplied, not the instrumented copies.*
+Based on the collected `*.exec` files reports can be created the same way as for execution data collected with the Java agent. **Note that for report generation the original class files have to be supplied, not the instrumented copies.**
 ____
 
 否則會遇到下面的錯誤：
@@ -70,11 +70,11 @@ java.lang.IllegalStateException: Class xxx is already instrumented.
 +
  * 不想讓自動產生的程式碼也出現在 coverage report 裡，只要將下面這些 class file 排除即可：
 +
---
- * `**/R.class`
- * `**/R$*.class`
- * `**/Manifest.class`
- * `**/Manifest$*.class`
- * `**/BuildConfig.class`
---
+----
+**/R.class
+**/R$*.class
+**/Manifest.class
+**/Manifest$*.class
+**/BuildConfig.class
+----
 
