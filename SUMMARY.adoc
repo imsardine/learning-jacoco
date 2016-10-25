@@ -17,12 +17,9 @@
 ////
 TBD:
 
- * JaCoCo 版本的對應 https://github.com/jacoco/jacoco/wiki/ExecFileVersions[ExecFileVersions · jacoco/jacoco Wiki]
- * 怎麼看 execution data 的版本? => `org/jacoco/core/data/ExecutionDataWriter.java` 裡的 `getFileHeader()` 寫著 Returns the first bytes of a file that represents a valid execution data file. In any case every execution data file starts with the three bytes <code>0x01 0xC0 0xC0</code>.
-
 疑問：
 
- * JaCoCo 的運作原理?? Agent 的作用是什麼?? Agent 好像有兩種解釋，一種是 Java 的 instrumentation agent，另一種則是 offline-instrumentation 後要放在 class path 裡的 `agent.jar` ?? ... 但好像都是 agent??
+ * JaCoCo 的運作原理?? Agent 的作用是什麼?? Agent 好像有兩種解釋，一種是 Java 的 instrumentation agent，另一種則是 offline-instrumentation 後要放在 class path 裡的 `agent.jar` ?? ... 但好像都是 agent
  * Jenkins plugin 的 Coverage column 是什麼??
  * app/build/outputs/code-coverage/connected/coverage.ec 跑兩個 device 為什麼還是只有一支 .ec 不像 Spoon 會做 merge??
  * target/site/jacoco/org.jacoco.examples.parser/Main.java.html 為什麼 for loop 也會被標示為 branch??

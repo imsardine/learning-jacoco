@@ -95,12 +95,5 @@ This will not affect the JaCoCo version used.
 ____
 ====
 
-由於無法指定 JaCoCo 的版本，若需要與其他工具整合時，知道 plugin 所用的 JaCoCo 版本就很重要，尤其 JaCoCo 0.7.5 變更了 execution data 的檔案格式，跟舊版本不相容。
-
-[quote,'http://www.eclemma.org/jacoco/trunk/doc/changes.html[JaCoCo - Change History]']
-____
-Release 0.7.5 (2015/05/24)
-
-The exec file version has been updated and is not compatible with previous versions.
-____
+由於無法指定 JaCoCo 的版本，若需要與其他工具整合時，知道 plugin 所用的 JaCoCo 版本就很重要，尤其 JaCoCo 0.7.5 變更了 execution data 的檔案格式，跟舊版本不相容。更多細節可以參考附錄 link:../exec-file-versions.adoc[Execution Dat (`.exec`) 的版本]。
 
