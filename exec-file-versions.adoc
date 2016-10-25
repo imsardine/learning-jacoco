@@ -63,13 +63,15 @@ org.jacoco.core.data.IncompatibleExecDataVersionException: Cannot read execution
 .https://github.com/jacoco/jacoco/blob/master/org.jacoco.core/src/org/jacoco/core/data/ExecutionDataReader.java[`org/jacoco/core/data/ExecutionDataReader.java`]
 ----
 private void readHeader() throws IOException {
-    if (in.readChar() != ExecutionDataWriter.MAGIC_NUMBER) {
+    if (in.readChar() != ExecutionDataWriter.MAGIC_NUMBER) { // <1>
         throw new IOException("Invalid execution data file.");
     }
     final char version = in.readChar();
-    if (version != ExecutionDataWriter.FORMAT_VERSION) { // <1>
+    if (version != ExecutionDataWriter.FORMAT_VERSION) {     // <2>
         throw new IncompatibleExecDataVersionException(version);
     }
 }
 ----
+<1> Exec file 不是以 `0x01 0xc0 0xc0` (magic number) 開頭，就視為無效的檔案。
+<2> Exec version 與這個 JaCoCo 版本採用的版本不同，就視為不相容。
 
