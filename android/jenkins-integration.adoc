@@ -4,7 +4,7 @@
 
 當然要這麼做也可以，但結果就只是個 HTML report，看不出 build 與 build 之間 coverage rate 的消長，像下面這樣：
 
-image::/images/jenkins-coverage-trend.png[]
+image::../images/jenkins-coverage-trend.png[]
 
 再者，執行測試不一定是透過 `connectedAndroidTest`，也可能透過其他第三方工具。以 http://square.github.io/spoon/[Spoon] 為例，它只會將 execution data 從測試裝置取出，但不會幫忙產生 coverage report。
 
@@ -21,12 +21,12 @@ ____
 ====
 要安裝 JaCoCo Plugin 1.0.19，要先到 plugin 頁面的 archives 連結下載 http://updates.jenkins-ci.org/download/plugins/jacoco/1.0.19/jacoco.hpi[`jacoco.hpi`]，再透過 Manage Jenkins > Managed Plugins > Advanced > Upload Plugin 上傳 `.hpi` 安裝。
 
-image::/images/jenkins-upload-plugin.png[]
+image::../images/jenkins-upload-plugin.png[]
 ====
 
 安裝好 JCoCo Plugin 後，job 設定頁面的 Add post-build action 就會多一項 "Record JaCoCo coverage report"：
 
-image::/images/jenkins-action-record-jacoco.png[]
+image::../images/jenkins-action-record-jacoco.png[]
 
 根據上一節的觀察，我們知道 execution data 在 `app/build/outputs/code-coverage/connected/[flavors/{flavor}/]coverage.ec`，產生 report 時要搭配沒有用 JaCoCo 加工過的 class file (`app/build/intermediates/classes/[{flavor}/]debug/**.class`)，並排除一些自動產生的程式碼。
 
@@ -54,11 +54,11 @@ CAUTION: 注意 "Path to xxx directories" 的設定，結尾的 `/` 必須去掉
 
 執行兩次 job 後 (有兩個數據才能畫出線條)，就可以在 job page 看到類似下面的 (Line) Code Coverage Trend：
 
-image::/images/jenkins-coverage-trend-initial.png[]
+image::../images/jenkins-coverage-trend-initial.png[]
 
 點 coverage trend 的圖形，就能打開 coverage report：
 
-image::/images/jenkins-coverage-report.png[]
+image::../images/jenkins-coverage-report.png[]
 
 雖然 report 的表現方式跟 Android Plugin for Gradle 產生的版本不太一樣，但兩邊的數據是一致的，解讀方式並無不同。
 

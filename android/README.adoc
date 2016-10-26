@@ -60,7 +60,7 @@ $ ./gradlew connectedAndroidTest
 $ open app/build/reports/coverage/debug/index.html
 ----
 
-image::/images/google-espress-sample-coverage.png[]
+image::../images/google-espress-sample-coverage.png[]
 
 不同版本的 Android Plugin for Gradle，背後整合的 JaCoCo 版本可能不同，可以從 http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.android.tools.build%22%20AND%20a%3A%22gradle-core%22[Maven Central Repository] 查看 `com.android.tools.build:gradle-core` 的 Project Object Model (POM)，也可以用下面的方式在本地端查詢：
 
