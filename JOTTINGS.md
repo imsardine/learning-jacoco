@@ -1,8 +1,8 @@
 # 雜記
 
-TBD:
+## Backlog
 
-疑問：
+## 其他
 
  * JaCoCo 的運作原理?? Agent 的作用是什麼?? Agent 好像有兩種解釋，一種是 Java 的 instrumentation agent，另一種則是 offline-instrumentation 後要放在 class path 裡的 `agent.jar` ?? ... 但好像都是 agent
  * Jenkins plugin 的 Coverage column 是什麼??

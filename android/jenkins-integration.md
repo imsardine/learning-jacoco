@@ -16,6 +16,8 @@
 >
 > -- [JaCoCo Plugin - Jenkins - Jenkins Wiki](https://wiki.jenkins-ci.org/display/JENKINS/JaCoCo+Plugin)
 
+實驗發現，使用 JaCoCo plugin 1.0.19 來處理 JaCoCo 0.7.5 之後的 execution data，並不會發生錯誤，但 coverage 會變成 0%；遇到這種狀況，可以先檢查一下 JaCoCo plugin 是否有裝錯版本。
+
 > <i class="fa fa-lightbulb-o fa-3x"></i>
 > 要安裝 JaCoCo Plugin 1.0.19，要先到 plugin 頁面的 archives 連結下載 [`jacoco.hpi`](http://updates.jenkins-ci.org/download/plugins/jacoco/1.0.19/jacoco.hpi)，再透過 Manage Jenkins > Managed Plugins > Advanced > Upload Plugin 上傳 `.hpi` 安裝。
 > 

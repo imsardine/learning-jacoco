@@ -1,4 +1,4 @@
-# Android 與 JaCoCo
+# JaCoCo 與 Android
 
 官方文件 [New Build System](http://tools.android.com/tech-docs/new-build-system) 提到，Android Plugin for Gradle 從 0.10.0 版開始支援用 JaCoCo 做 code coverage，只要在 build type 裡宣告 `testCoverageEnabled = true` 即可。例如：
 
